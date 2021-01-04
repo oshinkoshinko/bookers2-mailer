@@ -1,5 +1,5 @@
 <table class='table'>
-  <tr><%= attachment_image_tag(user, :profile_image, :fill, 100, 100, fallback: "no_image.jpg") %></tr>
+  <tr><%= attachment_image_tag(user, :profile_image, size: "100x100", fallback: "no_image.jpg") %></tr>
   <tr>
 	  <th>name</th>
 	  <th><%= user.name %></th>
@@ -22,16 +22,18 @@
   </tr>
 </table>
 
+<% if current_user?(user) %>
 <div class='row'>
   <%= link_to '',edit_user_path(user),class: "btn btn-outline-secondary btn-block fas fa-user-cog edit_user_#{user.id}" %>
 </div>
+<% end %>
 
 <% unless current_user?(user) %>
  <div id="follow_form">
  <% if current_user.following?(user) %>
-  <%= render 'unfollow', user: user %>
+  <%= render 'users/unfollow', user: user %>
  <% else %>
-  <%= render 'follow', user: user %>
+  <%= render 'users/follow', user: user %>
  <% end %>
  </div>
 <% end %>
