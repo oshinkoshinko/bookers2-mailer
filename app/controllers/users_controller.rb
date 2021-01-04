@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :ensure_correct_user, only: [:update, :following, :followers]
+  before_action :ensure_correct_user, only: [:update]
 
   def show
     @user = User.find(params[:id])
@@ -32,14 +32,14 @@ class UsersController < ApplicationController
   def following
     @title = "Follow"
     @user = User.find(params[:id])
-    @users = @user.following.paginate(page: params[:page])
+    @users = @user.following.all
     render 'show_follow'
   end
 
   def followers
     @title = "Follower"
     @user = User.find(params[:id])
-    @users = @user.followers.paginate(page: params[:page])
+    @users = @user.followers.all
     render 'show_follow'
   end
 
